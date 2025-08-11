@@ -2,15 +2,15 @@ const { ethers } = require("hardhat");
 require("dotenv").config();
 
 async function main() {
-  console.log("🚀 Deploying Blockchain Payment Platform to 0g.ai...");
+  console.log("Deploying Blockchain Payment Platform to 0g.ai...");
   
   // Get the deployer account
   const [deployer] = await ethers.getSigners();
-  console.log("📝 Deploying contracts with account:", deployer.address);
-  console.log("💰 Account balance:", (await deployer.provider.getBalance(deployer.address)).toString());
+  console.log("Deploying contracts with account:", deployer.address);
+  console.log("Account balance:", (await deployer.provider.getBalance(deployer.address)).toString());
 
   // Deploy PaymentToken first
-  console.log("\n🔸 Deploying PaymentToken...");
+  console.log("\nDeploying PaymentToken...");
   const PaymentToken = await ethers.getContractFactory("PaymentToken");
   const paymentToken = await PaymentToken.deploy(
     "v0 Payment Token",    // name
@@ -20,18 +20,18 @@ async function main() {
   );
   await paymentToken.waitForDeployment();
   const tokenAddress = await paymentToken.getAddress();
-  console.log("✅ PaymentToken deployed to:", tokenAddress);
+  console.log("PaymentToken deployed to:", tokenAddress);
 
   // Deploy PaymentGateway
-  console.log("\n🔸 Deploying PaymentGateway...");
+  console.log("\nDeploying PaymentGateway...");
   const PaymentGateway = await ethers.getContractFactory("PaymentGateway");
   const paymentGateway = await PaymentGateway.deploy(tokenAddress);
   await paymentGateway.waitForDeployment();
   const gatewayAddress = await paymentGateway.getAddress();
-  console.log("✅ PaymentGateway deployed to:", gatewayAddress);
+  console.log("PaymentGateway deployed to:", gatewayAddress);
 
   // Verify contracts on block explorer (if supported)
-  console.log("\n🔍 Verifying contracts...");
+  console.log("\nVerifying contracts...");
   try {
     await hre.run("verify:verify", {
       address: tokenAddress,
@@ -42,9 +42,9 @@ async function main() {
         1000000
       ],
     });
-    console.log("✅ PaymentToken verified");
+    console.log("PaymentToken verified");
   } catch (error) {
-    console.log("⚠️  PaymentToken verification failed:", error.message);
+    console.log("PaymentToken verification failed:", error.message);
   }
 
   try {
@@ -52,9 +52,9 @@ async function main() {
       address: gatewayAddress,
       constructorArguments: [tokenAddress],
     });
-    console.log("✅ PaymentGateway verified");
+    console.log("PaymentGateway verified");
   } catch (error) {
-    console.log("⚠️  PaymentGateway verification failed:", error.message);
+    console.log("PaymentGateway verification failed:", error.message);
   }
 
   // Save deployment info
@@ -77,14 +77,14 @@ async function main() {
     }
   };
 
-  console.log("\n📋 Deployment Summary:");
+  console.log("\nDeployment Summary:");
   console.log("Network:", deploymentInfo.network);
   console.log("PaymentToken:", tokenAddress);
   console.log("PaymentGateway:", gatewayAddress);
   console.log("Deployer:", deployer.address);
   
-  console.log("\n🎉 Deployment completed successfully!");
-  console.log("💡 Update your frontend with these contract addresses");
+  console.log("\nDeployment completed successfully!");
+  console.log("Update your frontend with these contract addresses");
   
   return deploymentInfo;
 }
@@ -92,6 +92,6 @@ async function main() {
 main()
   .then(() => process.exit(0))
   .catch((error) => {
-    console.error("❌ Deployment failed:", error);
+    console.error("Deployment failed:", error);
     process.exit(1);
   });

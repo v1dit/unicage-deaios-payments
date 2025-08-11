@@ -1,17 +1,17 @@
-# 🚀 Unicage Blockchain Payment Platform
+# Unicage Blockchain Payment Platform
 
 A production-ready blockchain-based payments platform leveraging **0g.ai's infrastructure** for secure, scalable, and low-cost transactions.
 
-## ✨ Features
+## Features
 
-- **🔐 Secure Smart Contracts**: ERC-20 token with payment gateway
-- **💳 Payment Processing**: Automated payment initiation and settlement
-- **📱 Modern Frontend**: React + TypeScript with MetaMask integration
-- **🌐 0g.ai Integration**: Leveraging high-performance blockchain infrastructure
-- **📊 Transaction History**: Complete audit trail and payment tracking
-- **🛡️ Security**: Reentrancy protection, access control, and secure operations
+- **Secure Smart Contracts**: ERC-20 token with payment gateway
+- **Payment Processing**: Automated payment initiation and settlement
+- **Modern Frontend**: React + TypeScript with MetaMask integration
+- **0g.ai Integration**: Leveraging high-performance blockchain infrastructure
+- **Transaction History**: Complete audit trail and payment tracking
+- **Security**: Reentrancy protection, access control, and secure operations
 
-## 🏗️ Architecture
+## Architecture
 
 ```
 ┌─────────────────┐    ┌──────────────────┐    ┌─────────────────┐
@@ -27,7 +27,7 @@ A production-ready blockchain-based payments platform leveraging **0g.ai's infra
 └─────────────────┘    └──────────────────┘    └─────────────────┘
 ```
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Prerequisites
 - Node.js 18+ 
@@ -45,7 +45,7 @@ cd frontend && npm install
 ### 2. Environment Setup
 ```bash
 # Copy environment template
-cp .env.example .env
+cp env.example .env
 
 # Generate wallet (creates .env with private key)
 npm run generate-wallet
@@ -78,7 +78,7 @@ cd frontend && npm run dev
 3. Import test account using private key from terminal
 4. Test payment functionality
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 unicage-deaios-payments/
@@ -100,7 +100,7 @@ unicage-deaios-payments/
 └── README.md                 # This file
 ```
 
-## 🔧 Smart Contracts
+## Smart Contracts
 
 ### PaymentToken.sol
 - **Standard ERC-20** with 18 decimals
@@ -114,7 +114,7 @@ unicage-deaios-payments/
 - **User payment history** queries
 - **Reentrancy protection** for security
 
-## 🌐 Network Configuration
+## Network Configuration
 
 ### Local Development (Hardhat)
 - **RPC URL**: `http://127.0.0.1:8545/`
@@ -126,7 +126,7 @@ unicage-deaios-payments/
 - **Chain ID**: 16601
 - **Currency**: Native token
 
-## 📱 Frontend Features
+## Frontend Features
 
 - **MetaMask Integration**: Secure wallet connection
 - **Token Balance Display**: Real-time balance checking
@@ -134,7 +134,7 @@ unicage-deaios-payments/
 - **Error Handling**: User-friendly error messages
 - **Responsive Design**: Mobile and desktop optimized
 
-## 🧪 Testing & Development
+## Testing & Development
 
 ```bash
 # Smart Contract Development
@@ -152,7 +152,7 @@ npm run typecheck       # TypeScript type checking
 npm run lint            # Code linting
 ```
 
-## 🚀 Deployment
+## Deployment
 
 ### Production Checklist
 - [ ] Smart contracts compiled and tested
@@ -172,7 +172,7 @@ cd frontend && npm run build
 # Deploy frontend (your preferred hosting)
 ```
 
-## 🔒 Security Features
+## Security Features
 
 - **Reentrancy Protection**: Prevents reentrancy attacks
 - **Access Control**: Owner-only administrative functions
@@ -180,14 +180,14 @@ cd frontend && npm run build
 - **Secure Approvals**: Proper ERC-20 approval flow
 - **Audit Trail**: Complete transaction logging
 
-## 📊 Performance Metrics
+## Performance Metrics
 
 - **Transaction Speed**: < 2 seconds (0g.ai)
 - **Gas Costs**: Optimized for efficiency
 - **Scalability**: Designed for high transaction volume
 - **Uptime**: 99.9% availability target
 
-## 🤝 Contributing
+## Contributing
 
 1. Fork the repository
 2. Create a feature branch
@@ -195,11 +195,11 @@ cd frontend && npm run build
 4. Add tests if applicable
 5. Submit a pull request
 
-## 📄 License
+## License
 
 MIT License - see LICENSE file for details
 
-## 🆘 Support
+## Support
 
 For technical support or questions:
 - Create an issue in the repository
@@ -208,5 +208,5 @@ For technical support or questions:
 
 ---
 
-**Built with ❤️ by the Unicage Team**
+**Built by the Unicage Team**
 **Powered by 0g.ai Infrastructure**
