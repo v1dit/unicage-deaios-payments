@@ -1,7 +1,6 @@
-<<<<<<< HEAD
 # 🚀 Unicage Blockchain Payment Platform
 
-A comprehensive blockchain-based payments platform leveraging **0g.ai's infrastructure** for secure, scalable, and low-cost transactions.
+A production-ready blockchain-based payments platform leveraging **0g.ai's infrastructure** for secure, scalable, and low-cost transactions.
 
 ## ✨ Features
 
@@ -10,7 +9,7 @@ A comprehensive blockchain-based payments platform leveraging **0g.ai's infrastr
 - **📱 Modern Frontend**: React + TypeScript with MetaMask integration
 - **🌐 0g.ai Integration**: Leveraging high-performance blockchain infrastructure
 - **📊 Transaction History**: Complete audit trail and payment tracking
-- **🛡️ Security**: Reentrancy protection, access control, and pausable operations
+- **🛡️ Security**: Reentrancy protection, access control, and secure operations
 
 ## 🏗️ Architecture
 
@@ -37,50 +36,60 @@ A comprehensive blockchain-based payments platform leveraging **0g.ai's infrastr
 
 ### 1. Clone & Install
 ```bash
-git clone <repository-url>
-cd unicage
+git clone https://github.com/v1dit/unicage-deaios-payments.git
+cd unicage-deaios-payments
 npm install
 cd frontend && npm install
 ```
 
-### 2. Generate Wallet
+### 2. Environment Setup
 ```bash
+# Copy environment template
+cp .env.example .env
+
+# Generate wallet (creates .env with private key)
 npm run generate-wallet
 ```
-This creates a `.env` file with your private key and address.
 
 ### 3. Deploy Smart Contracts
 ```bash
 # Compile contracts
 npm run compile
 
-# Deploy to 0g.ai testnet
+# Deploy locally for testing
+npm run deploy:local
+
+# Deploy to 0g.ai testnet (when ready)
 npm run deploy:0g
 ```
 
-### 4. Update Frontend
-After deployment, update contract addresses in `frontend/src/lib/payment.ts`:
-```typescript
-const PAYMENT_GATEWAY_ADDRESS = "0x..."; // Your deployed address
-const PAYMENT_TOKEN_ADDRESS = "0x...";   // Your deployed address
+### 4. Start Development Environment
+```bash
+# Terminal 1: Start local blockchain
+npm run node
+
+# Terminal 2: Start frontend
+cd frontend && npm run dev
 ```
 
-### 5. Start Frontend
-```bash
-cd frontend
-npm run dev
-```
+### 5. Test the System
+1. Open `http://localhost:5173/` in your browser
+2. Connect MetaMask to local network (Chain ID: 1337)
+3. Import test account using private key from terminal
+4. Test payment functionality
 
 ## 📁 Project Structure
 
 ```
-unicage/
+unicage-deaios-payments/
 ├── contracts/                 # Smart contracts
 │   ├── PaymentToken.sol      # ERC-20 token contract
 │   └── PaymentGateway.sol    # Payment processing contract
 ├── frontend/                  # React frontend
 │   ├── src/
-│   │   ├── lib/payment.ts    # Payment integration library
+│   │   ├── lib/
+│   │   │   ├── payment.ts    # Payment integration library
+│   │   │   └── addresses.ts  # Contract addresses
 │   │   ├── App.tsx           # Main application
 │   │   └── main.tsx          # Entry point
 │   └── package.json
@@ -95,9 +104,9 @@ unicage/
 
 ### PaymentToken.sol
 - **Standard ERC-20** with 18 decimals
-- **Pausable** for emergency stops
 - **Ownable** with mint/burn capabilities
 - **Initial supply**: 1,000,000 tokens
+- **Security**: Access control and validation
 
 ### PaymentGateway.sol
 - **Payment initiation** and settlement
@@ -107,9 +116,14 @@ unicage/
 
 ## 🌐 Network Configuration
 
+### Local Development (Hardhat)
+- **RPC URL**: `http://127.0.0.1:8545/`
+- **Chain ID**: 1337
+- **Currency**: ETH (test accounts with 10,000 ETH)
+
 ### 0g.ai Testnet
 - **RPC URL**: `https://autumn-old-valley.0g-galileo.quiknode.pro/...`
-- **Chain ID**: 1337
+- **Chain ID**: 16601
 - **Currency**: Native token
 
 ## 📱 Frontend Features
@@ -120,17 +134,22 @@ unicage/
 - **Error Handling**: User-friendly error messages
 - **Responsive Design**: Mobile and desktop optimized
 
-## 🧪 Testing
+## 🧪 Testing & Development
 
 ```bash
-# Run tests
-npm test
+# Smart Contract Development
+npm run compile          # Compile contracts
+npm run test            # Run tests
+npm run node            # Start local node
+npm run deploy:local    # Deploy locally
+npm run deploy:0g       # Deploy to 0g.ai
 
-# Local deployment for testing
-npm run deploy:local
-
-# Start local node
-npm run node
+# Frontend Development
+cd frontend
+npm run dev             # Start development server
+npm run build           # Build for production
+npm run typecheck       # TypeScript type checking
+npm run lint            # Code linting
 ```
 
 ## 🚀 Deployment
@@ -158,8 +177,8 @@ cd frontend && npm run build
 - **Reentrancy Protection**: Prevents reentrancy attacks
 - **Access Control**: Owner-only administrative functions
 - **Input Validation**: Comprehensive parameter checking
-- **Emergency Pause**: Ability to pause operations
 - **Secure Approvals**: Proper ERC-20 approval flow
+- **Audit Trail**: Complete transaction logging
 
 ## 📊 Performance Metrics
 
@@ -191,17 +210,3 @@ For technical support or questions:
 
 **Built with ❤️ by the Unicage Team**
 **Powered by 0g.ai Infrastructure**
-=======
-# React + Vite
-
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
->>>>>>> 187d127f02557657936980395c01791f305c7046
