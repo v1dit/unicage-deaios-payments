@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 #  Unicage Blockchain Payment Platform
 
 A comprehensive blockchain-based payments platform leveraging **0g.ai's infrastructure** for secure, scalable, and low-cost transactions.
