@@ -1,10 +1,17 @@
-require("@nomicfoundation/hardhat-toolbox");
+require('dotenv').config();
+require('@nomicfoundation/hardhat-ethers');
+
 module.exports = {
-  solidity: {
-    compilers: [
-      { version: "0.8.23" },
-      { version: "0.8.28" }
-    ]
+  solidity: '0.8.28',
+  networks: {
+    hardhat: {},
+    localhost: {
+      url: 'http://127.0.0.1:8545',
+      accounts: [process.env.DEPLOYER_KEY].filter(Boolean),
+    },
+    og_testnet: {
+      url: process.env.RPC_URL, // switch back to 0g later
+      accounts: [process.env.DEPLOYER_KEY].filter(Boolean),
+    },
   },
-  networks: { localhost: {} }
 };
