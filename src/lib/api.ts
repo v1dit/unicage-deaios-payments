@@ -1,4 +1,4 @@
-const API = import.meta.env.VITE_API_URL;
+const API = import.meta.env.VITE_API_URL || "http://localhost:3000";
 
 export async function logPayment(p:{from:string,to:string,amount:string,txHash:string}) {
   try {
