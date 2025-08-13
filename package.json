@@ -1,38 +1,40 @@
 {
-  "name": "unicage-blockchain-payment-platform",
-  "version": "1.0.0",
-  "description": "Blockchain-based payments platform leveraging 0g.ai infrastructure",
-  "main": "index.js",
+  "name": "unicage-deaios-payments",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
   "scripts": {
-    "compile": "hardhat compile",
-    "test": "hardhat test",
-    "deploy:0g": "hardhat run scripts/deploy.js --network 0g-ai",
-    "deploy:local": "hardhat run scripts/deploy.js --network hardhat",
-    "node": "hardhat node",
-    "clean": "hardhat clean",
-    "generate-wallet": "node generateWallet.js",
-    "send-tx": "node sendTx.js",
-    "typecheck": "cd frontend && npx tsc --noEmit",
-    "lint": "cd frontend && npm run lint",
-    "build": "cd frontend && npm run build",
-    "dev": "cd frontend && npm run dev"
-  },
-  "keywords": [
-    "blockchain",
-    "payments",
-    "0g.ai",
-    "ethereum",
-    "smart-contracts"
-  ],
-  "author": "Unicage Team",
-  "license": "MIT",
-  "devDependencies": {
-    "@nomicfoundation/hardhat-toolbox": "^4.0.0",
-    "@openzeppelin/contracts": "^5.0.0",
-    "hardhat": "^2.19.0",
-    "dotenv": "^16.3.0"
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "lint": "eslint .",
+    "preview": "vite preview"
   },
   "dependencies": {
-    "ethers": "^6.8.0"
+    "class-variance-authority": "^0.7.1",
+    "ethers": "^6.15.0",
+    "lucide-react": "^0.539.0",
+    "next-themes": "^0.4.6",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "tailwind-variants": "^2.1.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.33.0",
+    "@nomicfoundation/hardhat-toolbox": "^6.1.0",
+    "@openzeppelin/contracts": "^5.4.0",
+    "@types/react": "^19.1.10",
+    "@types/react-dom": "^19.1.7",
+    "@vitejs/plugin-react": "^5.0.0",
+    "autoprefixer": "^10.4.21",
+    "eslint": "^9.33.0",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-refresh": "^0.4.20",
+    "globals": "^16.3.0",
+    "hardhat": "^2.26.3",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^4.1.11",
+    "typescript": "~5.8.3",
+    "typescript-eslint": "^8.39.1",
+    "vite": "^7.1.2"
   }
 }

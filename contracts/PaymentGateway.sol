@@ -1,92 +1,35 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.28;
+pragma solidity ^0.8.23;
 
-import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
-import "@openzeppelin/contracts/access/Ownable.sol";
-import "./PaymentToken.sol";
+interface IERC20 {
+    function transferFrom(address from, address to, uint256 value) external returns (bool);
+}
 
-contract PaymentGateway is ReentrancyGuard, Ownable {
-    PaymentToken public paymentToken;
-    
-    struct Payment {
-        uint256 id;
-        address sender;
-        address recipient;
-        uint256 amount;
-        uint256 timestamp;
-        bool settled;
-        string metadata;
-    }
-    
-    uint256 private _paymentIds = 0;
-    mapping(uint256 => Payment) public payments;
-    mapping(address => uint256[]) public userPayments;
-    
-    event PaymentInitiated(uint256 indexed paymentId, address indexed sender, address indexed recipient, uint256 amount);
-    event PaymentSettled(uint256 indexed paymentId, address indexed recipient, uint256 amount);
-    
-    constructor(address _paymentToken) Ownable(msg.sender) {
-        paymentToken = PaymentToken(_paymentToken);
-    }
-    
-    function initiatePayment(
-        address recipient,
+contract PaymentGateway {
+    uint256 private _nonce;
+
+    event PaymentInitiated(
+        bytes32 indexed id,
+        address indexed payer,
+        address indexed token,
+        address to,
         uint256 amount,
-        string memory metadata
-    ) external nonReentrant returns (uint256) {
-        require(recipient != address(0), "Invalid recipient");
-        require(amount > 0, "Amount must be greater than 0");
-        require(
-            paymentToken.transferFrom(msg.sender, address(this), amount),
-            "Transfer failed"
-        );
-        
-        _paymentIds++;
-        uint256 paymentId = _paymentIds;
-        
-        payments[paymentId] = Payment({
-            id: paymentId,
-            sender: msg.sender,
-            recipient: recipient,
-            amount: amount,
-            timestamp: block.timestamp,
-            settled: false,
-            metadata: metadata
-        });
-        
-        userPayments[msg.sender].push(paymentId);
-        userPayments[recipient].push(paymentId);
-        
-        emit PaymentInitiated(paymentId, msg.sender, recipient, amount);
-        
-        return paymentId;
+        string memo
+    );
+
+    function initiatePayment(address token, address to, uint256 amount, string calldata memo)
+        external
+        returns (bytes32)
+    {
+        require(to != address(0), "bad recipient");
+        require(amount > 0, "amount=0");
+
+        // pull funds
+        require(IERC20(token).transferFrom(msg.sender, to, amount), "transferFrom failed");
+
+        // make an id
+        bytes32 id = keccak256(abi.encodePacked(block.chainid, block.timestamp, msg.sender, to, amount, _nonce++));
+        emit PaymentInitiated(id, msg.sender, token, to, amount, memo);
+        return id;
     }
-    
-    function settlePayment(uint256 paymentId) external nonReentrant {
-        Payment storage payment = payments[paymentId];
-        require(payment.id != 0, "Payment does not exist");
-        require(!payment.settled, "Payment already settled");
-        require(msg.sender == payment.recipient, "Only recipient can settle");
-        
-        payment.settled = true;
-        
-        require(
-            paymentToken.transfer(payment.recipient, payment.amount),
-            "Settlement transfer failed"
-        );
-        
-        emit PaymentSettled(paymentId, payment.recipient, payment.amount);
-    }
-    
-    function getPayment(uint256 paymentId) external view returns (Payment memory) {
-        return payments[paymentId];
-    }
-    
-    function getUserPayments(address user) external view returns (uint256[] memory) {
-        return userPayments[user];
-    }
-    
-    function getPaymentCount() external view returns (uint256) {
-        return _paymentIds;
-    }
-} 
+}
