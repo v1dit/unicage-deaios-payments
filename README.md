@@ -1,69 +1,128 @@
-# React + TypeScript + Vite
+# Blockchain Payment Platform – MVP (0g.ai Integration)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Overview
+This project is a blockchain-based payments platform built on 0g.ai’s infrastructure.  
+It enables **secure, low-cost, tokenized transactions** with wallet creation, payment initiation, verification, and transaction history — integrated via API into an existing payment platform.
 
-Currently, two official plugins are available:
+## Architecture
+[Frontend (React/Vite)] <---> [Backend (Node.js/Express API)] <---> [0g.ai Blockchain RPC]
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+markdown
+Copy
+Edit
 
-## Expanding the ESLint configuration
+### Detailed Flow
+1. **Frontend (React/Vite)** – User interface for creating wallets, making payments, and viewing history.
+2. **Backend (Node.js/Express)** – Handles API requests, communicates with blockchain, stores temporary state.
+3. **Blockchain (0g.ai / Hardhat)** – Executes smart contracts for token transfers, records immutable transaction history.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Folder Structure
+backend/ # Express API, blockchain integration
+frontend/ # React/Vite UI
+contracts/ # Smart contracts (Hardhat)
+.env.example # Environment variables template
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+bash
+Copy
+Edit
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+## Environment Variables
+Create a `.env` in the project root:
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Backend
+PORT=3000
+RPC_URL=https://evmrpc-testnet.0g.ai
+DEPLOYER_KEY=your_private_key
+JWT_SECRET=your_secret
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Frontend
+VITE_API_URL=http://localhost:3000
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+bash
+Copy
+Edit
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## Running Locally
+
+**Backend**
+```bash
+cd backend
+npm install
+npm run dev
+Frontend
+
+bash
+Copy
+Edit
+cd frontend
+npm install
+npm run dev
+Open in your browser: http://localhost:5173
+
+Known Limitations
+Only tested on local Hardhat & 0g.ai testnet
+
+Requires manual smart contract deployment before usage
+
+No production wallet security layer implemented yet
+
+Demo Script (Quick Reference)
+Login
+
+Click “Login” → verify JWT token stored in localStorage (check dev console).
+
+Create Payment Intent
+
+Enter amount + recipient address → click "Pay".
+
+Simulate Transaction
+
+Show transaction hash returned in UI.
+
+Check Status
+
+Poll payment status → shows "confirmed".
+
+View History
+
+Navigate to history page → displays recent payment(s).
+
+Testing Notes
+Environment
+
+macOS 12.x
+
+Node.js v18.x
+
+npm v9.x
+
+Observations
+
+Local Hardhat transactions confirm in <3 seconds
+
+0g.ai testnet confirmations: 5–15 seconds
+
+Next Steps for Production
+
+Deploy backend (Render/Railway/Fly/EC2)
+
+Deploy frontend (Vercel/Netlify)
+
+Secure private keys in cloud secrets manager
+
+Integrate with live payment platform API
+
+yaml
+Copy
+Edit
+
+---
+
+Do you want me to also **merge in** a proper ASCII diagram so the README looks presentation-ready for your boss? That way it’s not just text.
+
+
+
+
+
+
+Ask ChatGPT
