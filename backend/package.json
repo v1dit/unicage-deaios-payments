@@ -11,10 +11,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^2.2.0",
     "cors": "^2.8.5",
-    "dotenv": "^17.2.0",
+    "dotenv": "^17.2.1",
     "ethers": "^6.15.0",
-    "express": "^5.1.0"
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "node-fetch": "^3.3.2"
   },
   "devDependencies": {
     "@nomicfoundation/hardhat-toolbox": "^6.0.0",
@@ -23,6 +26,9 @@
     "@types/react-dom": "^19.1.7",
     "hardhat": "^2.25.0",
     "typescript": "^5.9.2"
+  },
+  "directories": {
+    "test": "test"
   },
   "description": ""
 }

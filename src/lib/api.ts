@@ -1,4 +1,5 @@
 // src/lib/api.ts
+import { signBody } from './auth';
 
 export type LoginResponse = { token: string };
 export type InitiateBody = { amount: string | number; currency: string; payee: `0x${string}` };
@@ -21,12 +22,13 @@ export async function loginDev(): Promise<LoginResponse> {
 }
 
 export async function initiatePayment(token: string, body: InitiateBody): Promise<InitiateResponse> {
+  const sig = await signBody(body);
   const r = await fetch(`${API}/payments/initiate`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`,
-      // 'X-Signature': await signBody(body), // add when HMAC is wired
+      'X-Signature': sig
     },
     body: JSON.stringify(body)
   });

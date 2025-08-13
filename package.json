@@ -7,7 +7,10 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "balance": "node scripts/check-balance.mjs",
+    "deploy:local": "npx hardhat run scripts/deploy.cjs",
+    "deploy:testnet": "npx hardhat run scripts/deploy.cjs --network og_testnet"
   },
   "dependencies": {
     "class-variance-authority": "^0.7.1",
