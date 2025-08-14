@@ -1,5 +1,4 @@
 // src/lib/api.ts
-import { signBody } from './auth';
 
 export type LoginResponse = { token: string };
 export type InitiateBody = { amount: string | number; currency: string; payee: `0x${string}` };
@@ -22,13 +21,11 @@ export async function loginDev(): Promise<LoginResponse> {
 }
 
 export async function initiatePayment(token: string, body: InitiateBody): Promise<InitiateResponse> {
-  const sig = await signBody(body);
-  const r = await fetch(`${API}/payments/initiate`, {
+  const r = await fetch(`${API}/bridge/create-intent`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`,
-      'X-Signature': sig
+      'Authorization': `Bearer ${token}`
     },
     body: JSON.stringify(body)
   });
@@ -66,4 +63,21 @@ export async function fetchHistory(address?: string): Promise<HistoryRow[]> {
   });
   if (!r.ok) throw new Error('history failed');
   return r.json();
+}
+
+// Back-compat for existing wallet UI
+export async function getPaymentHistory(address: string): Promise<Array<{ id: string; recipient: string; amount: string; timestamp: number; settled: boolean }>> {
+  const rows = await fetchHistory(address);
+  return rows.map(r => ({
+    id: (r.txHash as string) || r.intentId || String(r.ts),
+    recipient: r.payee,
+    amount: String(r.amount),
+    timestamp: r.ts,
+    settled: true
+  }));
+}
+
+// No-op logger to satisfy existing imports; backend already records on intent creation
+export async function logPayment(_evt: { from: string; to: string; amount: string; txHash: string }): Promise<void> {
+  return;
 }

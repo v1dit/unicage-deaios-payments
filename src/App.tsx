@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { sendV0Payment, getTokenBalance, getPaymentHistory } from "./lib/payment";
 import { getContractAddresses } from "./lib/addresses";
+import PaymentDemo from "./PaymentDemo";
 
 declare global { interface Window { ethereum?: any } }
 
@@ -105,6 +106,12 @@ export default function App() {
         ))}
         {!history.length && <li>None yet.</li>}
       </ul>
+
+      <div style={{ marginTop: 40 }}>
+        <hr />
+        <h2 style={{ marginTop: 16 }}>Mock Blockchain Payment Demo</h2>
+        <PaymentDemo />
+      </div>
     </div>
   );
 }
