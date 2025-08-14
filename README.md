@@ -115,14 +115,3 @@ Integrate with live payment platform API
 yaml
 Copy
 Edit
-
----
-
-Do you want me to also **merge in** a proper ASCII diagram so the README looks presentation-ready for your boss? That way it’s not just text.
-
-
-
-
-
-
-Ask ChatGPT
